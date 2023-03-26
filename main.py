@@ -1,12 +1,16 @@
+from median_filter import show_res
+from adaptive_median_filter import show_adaptive
+from weighted_median_filter import show_weighted
+
 def switch_methods():
     method = input("введите название метода фильтрации: ")
     match method:
         case 'медианный':
-            print('1')
+            show_res('pictures/asta.jpg')
         case 'взвешенный':
-            print('2')
+            show_weighted('pictures/asta.jpg')
         case 'адаптивный':
-            print('3')
+            show_adaptive('pictures/asta.jpg')
         case _:
             print('такого фильтра не существует, проверьте введенное выражение')
 

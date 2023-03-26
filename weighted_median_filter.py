@@ -24,14 +24,18 @@ def weighted_median_filter(image, kernel_size, weights):
     return filtered_img
 
 
-img = Image.open('pictures/asta.jpg')
+def show_weighted(path):
+    global img
+    try:
+        img = Image.open(path)
+    except FileNotFoundError:
+        print('файла по заданному пути не существует')
 
-weights = np.array([[1, 1, 1, 1, 1],
-[1, 2, 2, 2, 1],
-[1, 2, 3, 2, 1],
-[1, 2, 2, 2, 1],
-[1, 1, 1, 1, 1]])
-filtered_img = weighted_median_filter(img, 5, weights)
-
-img.show()
-filtered_img.show()
+    weights = np.array([[1, 1, 1, 1, 1],
+    [1, 2, 2, 2, 1],
+    [1, 2, 3, 2, 1],
+    [1, 2, 2, 2, 1],
+    [1, 1, 1, 1, 1]])
+    filtered_img = weighted_median_filter(img, 5, weights)
+    img.show()
+    filtered_img.show()

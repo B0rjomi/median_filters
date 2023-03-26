@@ -34,7 +34,12 @@ def adaptive_median_filter_color(img, window_size_max):
     return Image.fromarray(out_arr)
 
 
-img = Image.open('pictures/picture_1.jpg')
-filtered_img = adaptive_median_filter_color(img, 17)
-img.show()
-filtered_img.show()
+def show_adaptive(path):
+    global img
+    try:
+        img = Image.open(path)
+    except FileNotFoundError:
+        print('файла по заданному не существует')
+    filtered_img = adaptive_median_filter_color(img, 17)
+    img.show()
+    filtered_img.show()

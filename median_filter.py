@@ -18,11 +18,14 @@ def median_filter(image, size):
     return filtered_image
 
 
-try:
-    img = Image.open('pictures/picture_1.jpg')
-except FileNotFoundError:
-    print("файла не существует")
-filtered_img = median_filter(img, 9)
-img.show()
-filtered_img.show()
+def show_res(path):
+    global img
+    try:
+        img = Image.open(path)
+    except FileNotFoundError:
+        print("файла по заданному пути не существует")
+    filtered_img = median_filter(img, 9)
+    img.show()
+    filtered_img.show()
+
 
