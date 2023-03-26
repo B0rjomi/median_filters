@@ -3,20 +3,29 @@ from PIL import Image
 
 
 def median_filter(image, size):
-    image = np.array(image)
-    w, h, d = image.shape
+    temp = []
     pad = size // 2
-    padded_img = np.zeros((w + pad*2, h + pad*2, d), dtype=np.uint8)
-    padded_img[pad:w+pad, pad:h+pad, :] = image
-    filtered_image = np.zeros((w, h, d), dtype=np.uint8)
-    for i in range(pad, w+pad):
-        for j in range(pad, h+pad):
-            for k in range(d):
-                window = padded_img[i-pad:i+pad+1, j-pad:j+pad+1, k]
-                filtered_image[i-pad, j-pad, k] = np.median(window)
-    filtered_image = Image.fromarray(filtered_image)
-    return filtered_image
+    final_pic = []
+    final_pic = np.zeros((len(image), len(image[0])))
+    for i in range(len(image)):
 
+        for j in range(len(image[0])):
+
+            for z in range(size):
+                if i + z - pad < 0 or i + z - pad > len(image) - 1:
+                    for c in range(size):
+                        temp.append(0)
+                else:
+                    if j + z - pad < 0 or j + pad > len(image[0]) - 1:
+                        temp.append(0)
+                    else:
+                        for k in range(size):
+                            temp.append(image[i + z - pad][j + k - pad])
+
+            temp.sort()
+            final_pic[i][j] = temp[len(temp) // 2]
+            temp = []
+    return final_pic
 
 def show_res(path):
     global img
@@ -24,8 +33,9 @@ def show_res(path):
         img = Image.open(path)
     except FileNotFoundError:
         print("файла по заданному пути не существует")
-    filtered_img = median_filter(img, 9)
+    arr = np.array(img)
+    filtered_img = median_filter(arr, 5)
+    img = Image.fromarray(filtered_img)
     img.show()
-    filtered_img.show()
 
 
